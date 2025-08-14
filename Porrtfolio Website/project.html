@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Display</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      padding: 20px;
+      color: #333;
+    }
+    .project {
+      display: flex;
+      margin: 20px 0;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffffff, #f0f4f8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    .project img {
+      width: 300px;
+      height: auto;
+      border-right: 5px solid #ff6f61;
+    }
+    .project-details {
+      padding: 20px;
+      flex: 1;
+    }
+    .project-details h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      color: #ff6f61;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    .project-details p {
+      color: #555;
+      margin: 10px 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #ff6f61, #ff3b3f);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #ff3b3f, #ff6f61);
+      transform: scale(1.05);
+    }
+    .memory-game h2 {
+      color: #ff4081;
+    }
+    .memory-game p {
+      color: #c71585;
+    }
+    .memory-game .btn {
+      background: linear-gradient(135deg, #ff4081, #ff1b6b);
+    }
+    .memory-game .btn:hover {
+      background: linear-gradient(135deg, #ff1b6b, #ff4081);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Existing Project 1 -->
+<div class="project">
+  <img src="data_management.jpg" alt="Data Management Project Image">
+  <div class="project-details">
+    <h2>Data Management</h2>
+    <p>A project focused on managing and visualizing data effectively.</p>
+    <a href="project1" class="btn">View Project</a>
+  </div>
+</div>
+
+<!-- Existing Project 2 -->
+<div class="project">
+  <img src="hangman.webp" alt="Hangman Game Project Image">
+  <div class="project-details">
+    <h2>Hangman Game</h2>
+    <p>An interactive game to guess words and improve vocabulary.</p>
+    <a href="project2" class="btn">View Project</a>
+  </div>
+</div>
+
+<!-- Existing Project 3 -->
+<div class="project memory-game">
+  <img src="memory img.webp" alt="Memory Game Project Image">
+  <div class="project-details">
+    <h2>Memory Game</h2>
+    <p>A fun and colorful game to test and improve your memory skills.</p>
+    <a href="project3" class="btn">View Project</a>
+  </div>
+</div>
+
+<!-- ✅ New Project 4: Quiz App -->
+<div class="project">
+  <img src="quiz.jpeg" alt="Quiz App Image">
+  <div class="project-details">
+    <h2>Quiz App</h2>
+    <p>An interactive quiz application with a scoring system, timer, and responsive design. Built using HTML, CSS, and JavaScript.</p>
+    <a href="https://quiz-app-lfgt.onrender.com/" class="btn" target="_blank">Live Demo</a>
+    <a href="https://github.com/rajeshmaity777/Quiz-App/tree/main" class="btn" target="_blank">Source Code</a>
+  </div>
+</div>
+
+<!-- ✅ New Project 5: AI Tutor System -->
+<div class="project">
+  <img src="ai tutor.avif" alt="AI Tutor System Image">
+  <div class="project-details">
+    <h2>AI Tutor System</h2>
+    <p>An AI-powered personalized tutor system that uses machine learning and Flask to adapt learning paths for students.</p>
+    <a href="https://github.com/rajeshmaity777/AI-Tutor-System" class="btn" target="_blank">GitHub Repo</a>
+  </div>
+</div>
+
+</body>
+</html>

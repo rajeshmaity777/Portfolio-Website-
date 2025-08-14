@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rajesh - Skills</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('your-about-bg.png') no-repeat center center/cover;
+      color: white;
+      min-height: 100vh;
+    }
+
+    .skills-section {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #ffc107;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 40px;
+      border-bottom: 1px solid #ffc107;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .description {
+      max-width: 700px;
+      margin: 10px auto 40px;
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .skill-card {
+      background-color: #111;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .skill-card img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .skill-card p {
+      font-weight: 500;
+      color: white;
+    }
+
+    .socials {
+      margin-top: 50px;
+    }
+
+    .socials a {
+      color: #ffc107;
+      font-size: 1.6rem;
+      margin: 0 15px;
+      transition: 0.3s ease;
+    }
+
+    .socials a:hover {
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="skills-section">
+    <h1>What I Can Do?</h1>
+    <p class="description">
+      I specialize in AI, Web Development. I'm currently building hands-on projects in ml and deep learning and also web development.
+    </p>
+
+    <!-- Programming Languages -->
+    <h2>Programming Languages</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><img src="python.png" alt="Python"><p>Python</p></div>
+      <div class="skill-card"><img src="c.skill.png" alt="C"><p>C</p></div>
+      <div class="skill-card"><img src="sql.skill.jpg" alt="SQL"><p>SQL</p></div>
+      <div class="skill-card"><img src="html.skill.webp" alt="HTML"><p>HTML</p></div>
+      <div class="skill-card"><img src="skill.css" alt="CSS"><p>CSS</p></div>
+      <div class="skill-card"><img src="js.skill.png" alt="JavaScript"><p>JavaScript</p></div>
+    </div>
+
+    <!-- Frameworks & Libraries -->
+    <h2>Frameworks & Libraries</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><img src="flask.skill.jpg" alt="Flask"><p>Flask</p></div>
+      <div class="skill-card"><img src="pandas.skill.png" alt="Pandas"><p>Pandas</p></div>
+      <div class="skill-card"><img src="numpy.skill.png" alt="NumPy"><p>NumPy</p></div>
+      <div class="skill-card"><img src="matplotlib.skill.jpg" alt="Matplotlib"><p>Matplotlib</p></div>
+      <div class="skill-card"><img src="seaborn.skill.jpeg" alt="Seaborn"><p>Seaborn</p></div>
+    </div>
+
+    <!-- Tools & Platforms -->
+    <h2>Tools & Platforms</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><img src="github.skill.png" alt="GitHub"><p>GitHub</p></div>
+      <div class="skill-card"><img src="mqsql.skill.png" alt="MySQL"><p>MySQL</p></div>
+      <div class="skill-card"><img src="postgesql.skill.jpeg" alt="PostgreSQL"><p>PostgreSQL</p></div>
+      <div class="skill-card"><img src="excel.skill.jpeg" alt="Excel"><p>Excel</p></div>
+    </div>
+
+    <!-- Communication & Soft Skills -->
+    <h2>Soft Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><img src="teamwork.skill.webp" alt="Teamwork"><p>Teamwork</p></div>
+      <div class="skill-card"><img src="communication.skill.jpeg" alt="Communication"><p>Communication</p></div>
+      <div class="skill-card"><img src="leadership.skill.png" alt="Leadership"><p>Leadership</p></div>
+      <div class="skill-card"><img src="decision.skill.png" alt="Decision Making"><p>Decision Making</p></div>
+      <div class="skill-card"><img src="time mangement.skill.webp" alt="Time Management"><p>Time Management</p></div>
+    </div>
+  </div>
+</body>
+</html>

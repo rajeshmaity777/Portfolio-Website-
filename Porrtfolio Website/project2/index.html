@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hangman Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      text-align: center;
+      padding: 20px;
+      transition: opacity 0.5s ease;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .game-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #6a0572;
+    }
+
+    #word-container {
+      font-size: 2rem;
+      margin: 20px 0;
+      letter-spacing: 10px;
+      color: #3c3c3c;
+    }
+
+    #wrong-letters {
+      color: #e63946;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    #alphabet-buttons {
+      margin: 20px 0;
+    }
+
+    #alphabet-buttons button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #6a0572, #c26d9c);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    #alphabet-buttons button:hover {
+      background: #450345;
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    #alphabet-buttons button.disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      pointer-events: none;
+      color: #999;
+      box-shadow: none;
+      position: relative;
+    }
+
+    #alphabet-buttons button.disabled::after {
+      content: "⛔";
+      position: absolute;
+      font-size: 1.5rem;
+      color: #ff6f61;
+      top: -10px;
+      right: -10px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-5px);
+      }
+    }
+
+    .lives, .timer, .remaining-letters {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .lives {
+      color: #2a9d8f;
+    }
+
+    .timer {
+      color: #e63946;
+    }
+
+    .remaining-letters {
+      color: #ff6f61;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #result {
+      margin-top: 20px;
+      color: #6a0572;
+    }
+
+    #result button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #457b9d;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #result button:hover {
+      background-color: #365069;
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    #score {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff007f;
+      animation: pulse 1.5s infinite;
+      margin-top: 10px;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        color: #ff007f;
+        text-shadow: 0 0 10px #ff00a9, 0 0 20px #ff47a1, 0 0 30px #ff78b0;
+      }
+      50% {
+        transform: scale(1.2);
+        color: #ff47a1;
+        text-shadow: 0 0 20px #ff78b0, 0 0 30px #ffa8c0, 0 0 40px #ffc8d0;
+      }
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    .controls button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #0077b6;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .controls button:hover {
+      background-color: #005f8a;
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .controls button.deep-hover {
+      animation: pulse-hover 0.8s infinite alternate;
+      box-shadow: 0 0 10px #ff007f, 0 0 20px #ff47a1, 0 0 30px #ff78b0;
+    }
+
+    @keyframes pulse-hover {
+      from {
+        transform: scale(1);
+        box-shadow: 0 0 10px #457b9d, 0 0 20px #72bdd3;
+      }
+      to {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px #5bc0eb, 0 0 30px #3a506b;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Hangman Game</h1>
+    <p>Guess the word by clicking the letters below:</p>
+    <div id="word-container"></div>
+    <div id="wrong-letters"></div>
+    <p class="remaining-letters">Remaining Letters: <span id="remaining-letters"></span></p>
+    <div id="alphabet-buttons"></div>
+    <p class="lives">Lives Remaining: <span id="lives">6</span></p>
+    <p class="timer">Time Remaining: <span id="timer">60</span> seconds</p>
+    <div class="controls">
+      <button id="start">Start</button>
+      <button id="pause" disabled>Pause</button>
+      <button id="resume" disabled>Resume</button>
+      <button id="restart">Restart</button>
+    </div>
+    <div id="result" class="hidden">
+      <h2 id="result-message"></h2>
+      <p id="score"></p>
+      <button id="play-again">Play Again</button>
+    </div>
+  </div>
+
+  <script>
+    const words = ["javascript", "hangman", "coding", "frontend", "developer", "datascience", "computer", "laptop", "mouse", "keyboard", "python", "backend", "programming"];
+    const maxLives = 6;
+    const maxTime = 60; // in seconds
+
+    let selectedWord, guessedLetters, wrongLetters, lives, timer;
+    let countdown;
+    let gamePaused = false;
+
+    const wordContainer = document.getElementById("word-container");
+    const wrongLettersDiv = document.getElementById("wrong-letters");
+    const alphabetButtons = document.getElementById("alphabet-buttons");
+    const livesSpan = document.getElementById("lives");
+    const timerSpan = document.getElementById("timer");
+    const remainingLettersSpan = document.getElementById("remaining-letters");
+    const resultDiv = document.getElementById("result");
+    const resultMessage = document.getElementById("result-message");
+    const playAgainBtn = document.getElementById("play-again");
+    const startBtn = document.getElementById("start");
+    const pauseBtn = document.getElementById("pause");
+    const resumeBtn = document.getElementById("resume");
+    const restartBtn = document.getElementById("restart");
+    const scoreDisplay = document.getElementById("score");
+
+    function initGame() {
+      selectedWord = words[Math.floor(Math.random() * words.length)];
+      guessedLetters = [];
+      wrongLetters = [];
+      lives = maxLives;
+      timer = maxTime;
+
+      wordContainer.innerHTML = "_ ".repeat(selectedWord.length).trim();
+      wrongLettersDiv.textContent = "";
+      livesSpan.textContent = lives;
+      timerSpan.textContent = timer;
+      remainingLettersSpan.textContent = selectedWord.length;
+      resultDiv.classList.add("hidden");
+
+      generateAlphabetButtons();
+    }
+
+    function generateAlphabetButtons() {
+      alphabetButtons.innerHTML = "";
+      for (let i = 97; i <= 122; i++) {
+        const button = document.createElement("button");
+        button.textContent = String.fromCharCode(i);
+        button.addEventListener("click", () => handleGuess(button));
+        alphabetButtons.appendChild(button);
+      }
+    }
+
+    function handleGuess(button) {
+      if (gamePaused) return; // Prevent input while paused
+
+      const letter = button.textContent;
+      button.classList.add("disabled");
+      button.disabled = true;
+
+      if (selectedWord.includes(letter)) {
+        guessedLetters.push(letter);
+        updateWordContainer();
+        checkWin();
+      } else {
+        wrongLetters.push(letter);
+        lives--;
+        updateWrongLetters();
+        updateLives();
+        checkLose();
+      }
+    }
+
+    function updateWordContainer() {
+      const displayWord = selectedWord
+        .split("")
+        .map((letter) => (guessedLetters.includes(letter) ? letter : "_"))
+        .join(" ");
+
+      wordContainer.textContent = displayWord;
+      remainingLettersSpan.textContent = selectedWord.length - guessedLetters.length;
+    }
+
+    function updateWrongLetters() {
+      wrongLettersDiv.textContent = `Wrong Letters: ${wrongLetters.join(", ")}`;
+    }
+
+    function updateLives() {
+      livesSpan.textContent = lives;
+    }
+
+    function checkWin() {
+      if (!wordContainer.textContent.includes("_")) {
+        endGame(true);
+      }
+    }
+
+    function checkLose() {
+      if (lives === 0) {
+        endGame(false);
+      }
+    }
+
+    function startTimer() {
+      clearInterval(countdown);
+      countdown = setInterval(() => {
+        if (!gamePaused) {
+          timer--;
+          timerSpan.textContent = timer;
+
+          if (timer <= 0) {
+            clearInterval(countdown);
+            endGame(false);
+          }
+        }
+      }, 1000);
+    }
+
+    function endGame(isWin) {
+      clearInterval(countdown);
+      resultDiv.classList.remove("hidden");
+      resultMessage.textContent = isWin ? "Congratulations! You Win!" : "Game Over. You Lose.";
+      scoreDisplay.textContent = `Your Score: ${lives * 10}`;
+    }
+
+    startBtn.addEventListener("click", () => {
+      gamePaused = false;
+      startBtn.disabled = true;
+      pauseBtn.disabled = false;
+      resumeBtn.disabled = true;
+      initGame();
+      startTimer();
+    });
+
+    pauseBtn.addEventListener("click", () => {
+      gamePaused = true;
+      pauseBtn.disabled = true;
+      resumeBtn.disabled = false;
+      resumeBtn.classList.add("deep-hover");
+
+      // Hide guessed letters
+      wordContainer.setAttribute("data-content", wordContainer.textContent);
+      wordContainer.textContent = "_ ".repeat(selectedWord.length).trim();
+    });
+
+    resumeBtn.addEventListener("click", () => {
+      gamePaused = false;
+      pauseBtn.disabled = false;
+      resumeBtn.disabled = true;
+      resumeBtn.classList.remove("deep-hover");
+
+      // Show guessed letters
+      const savedContent = wordContainer.getAttribute("data-content");
+      if (savedContent) {
+        wordContainer.textContent = savedContent;
+      }
+    });
+
+    restartBtn.addEventListener("click", () => {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        document.body.classList.remove("fade-out");
+        clearInterval(countdown);
+        initGame();
+        startTimer();
+      }, 500);
+    });
+
+    playAgainBtn.addEventListener("click", () => {
+      clearInterval(countdown);
+      initGame();
+      startTimer();
+    });
+
+    // Initialize game on page load
+    initGame();
+  </script>
+</body>
+</html>
